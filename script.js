@@ -1,4 +1,3 @@
-
 import * as THREE from "three";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
@@ -163,21 +162,21 @@ function carregarCarro(tipo) {
 
             const modelo = gltf.scene;
 
-            // CALCULA AS DIMENSÕES ORIGINAIS
+            // DIMENSÕES ORIGINAIS
             const caixaOriginal = new THREE.Box3().setFromObject(modelo);
 
             const tamanhoOriginal = new THREE.Vector3();
 
             caixaOriginal.getSize(tamanhoOriginal);
 
-            // CORRIGE A ORIENTAÇÃO DO MODELO
+            // ORIENTAÇÃO DO MODELO
             if (tamanhoOriginal.x > tamanhoOriginal.z) {
                 modelo.rotation.y = -Math.PI / 2;
             } else {
                 modelo.rotation.y = 0;
             }
 
-            // CONFIGURA AS SOMBRAS
+            // SOMBRAS
             modelo.traverse(function (objeto) {
                 if (objeto.isMesh) {
                     objeto.castShadow = true;
@@ -185,12 +184,11 @@ function carregarCarro(tipo) {
                 }
             });
 
-            // CRIA UM GRUPO PARA CENTRALIZAR O CARRO
+            // GRUPO PARA CENTRALIZAR O CARRO
             const grupoModelo = new THREE.Group();
 
             grupoModelo.add(modelo);
 
-            // CALCULA AS DIMENSÕES DEPOIS DA ROTAÇÃO
             const caixa = new THREE.Box3().setFromObject(modelo);
 
             const tamanho = new THREE.Vector3();
@@ -199,7 +197,6 @@ function carregarCarro(tipo) {
             caixa.getSize(tamanho);
             caixa.getCenter(centro);
 
-            // AJUSTA O TAMANHO
             const maiorTamanho = Math.max(
                 tamanho.x,
                 tamanho.y,
@@ -211,7 +208,6 @@ function carregarCarro(tipo) {
 
                 grupoModelo.scale.setScalar(escala);
 
-                // CENTRALIZA E COLOCA O CARRO NO CHÃO
                 grupoModelo.position.set(
                     -centro.x * escala,
                     -caixa.min.y * escala,
@@ -402,12 +398,20 @@ let speed = 0.55;
 const velocidadeNormal = 0.55;
 const distanciaFinal = 250;
 
+// TECLADO E CONTROLES MOBILE
 const teclas = {
     ArrowLeft: false,
     ArrowRight: false,
     ArrowUp: false,
     ArrowDown: false
 };
+
+// LIMPAR TECLAS
+function limparTeclas() {
+    Object.keys(teclas).forEach(function (tecla) {
+        teclas[tecla] = false;
+    });
+}
 
 // ATUALIZA A INTERFACE
 function atualizarInterface() {
@@ -457,6 +461,8 @@ function iniciarJogo() {
         moeda.visible = true;
     });
 
+    limparTeclas();
+
     atualizarInterface();
 
     running = true;
@@ -468,6 +474,8 @@ function iniciarJogo() {
 // VOLTAR AO MENU DE SELEÇÃO
 function voltarAoMenu() {
     running = false;
+
+    limparTeclas();
 
     finishMessage.classList.add("hidden");
     message.classList.remove("hidden");
@@ -482,6 +490,8 @@ function voltarAoMenu() {
 // FINALIZAR JOGO
 function finalizarJogo(titulo) {
     running = false;
+
+    limparTeclas();
 
     finishTitle.textContent = titulo;
 
@@ -553,7 +563,7 @@ function verificarMoedas() {
     });
 }
 
-// TECLADO
+// CONTROLES DO TECLADO
 window.addEventListener("keydown", function (evento) {
     if (teclas.hasOwnProperty(evento.key)) {
         evento.preventDefault();
@@ -563,17 +573,63 @@ window.addEventListener("keydown", function (evento) {
 
 window.addEventListener("keyup", function (evento) {
     if (teclas.hasOwnProperty(evento.key)) {
+        evento.preventDefault();
         teclas[evento.key] = false;
     }
 });
 
-window.addEventListener("blur", function () {
-    Object.keys(teclas).forEach(function (tecla) {
+// CONTROLES PARA CELULAR E TABLET
+function configurarBotaoMobile(id, tecla) {
+    const botao = document.getElementById(id);
+
+    if (!botao) {
+        console.warn("Botão mobile não encontrado:", id);
+        return;
+    }
+
+    botao.addEventListener("pointerdown", function (evento) {
+        evento.preventDefault();
+
+        if (!running) {
+            return;
+        }
+
+        teclas[tecla] = true;
+
+        if (botao.setPointerCapture) {
+            botao.setPointerCapture(evento.pointerId);
+        }
+    });
+
+    function soltar(evento) {
+        evento.preventDefault();
+        teclas[tecla] = false;
+    }
+
+    botao.addEventListener("pointerup", soltar);
+    botao.addEventListener("pointercancel", soltar);
+
+    botao.addEventListener("lostpointercapture", function () {
         teclas[tecla] = false;
     });
+}
+
+// CONECTA OS QUATRO BOTÕES
+configurarBotaoMobile("leftBtn", "ArrowLeft");
+configurarBotaoMobile("rightBtn", "ArrowRight");
+configurarBotaoMobile("accelerateBtn", "ArrowUp");
+configurarBotaoMobile("brakeBtn", "ArrowDown");
+
+// LIMPA OS CONTROLES AO SAIR DA PÁGINA
+window.addEventListener("blur", limparTeclas);
+
+document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+        limparTeclas();
+    }
 });
 
-// BOTÕES
+// BOTÕES DO MENU
 startButton.addEventListener("click", iniciarJogo);
 restartButton.addEventListener("click", voltarAoMenu);
 
@@ -582,6 +638,7 @@ function animar() {
     requestAnimationFrame(animar);
 
     if (running) {
+
         // ACELERAR E FREAR
         if (teclas.ArrowUp) {
             speed = Math.min(speed + 0.012, 1.15);
