@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Turbo Run 3D</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js",
+            "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.186.0/examples/jsm/"
+        }
+    }
+    </script>
+</head>
+<body>
+
+    <div id="hud">
+
+        <div class="logo">
+            TURBO <span>RUN 3D</span>
+        </div>
+
+        <div class="stats">
+
+            <div class="stat">
+                PONTOS
+                <strong id="score">0</strong>
+            </div>
+
+            <div class="stat">
+                MOEDAS
+                <strong id="coins">0</strong>
+            </div>
+
+            <div class="stat">
+                DISTÂNCIA
+                <strong><span id="distance">0</span> m</strong>
+            </div>
+
+        </div>
+
+        <div id="damage">
+            RESISTÊNCIA
+
+            <div id="healthBar">
+                <div id="healthFill"></div>
+            </div>
+
+            <strong id="healthText">100%</strong>
+        </div>
+
+    </div>
+
+    <div id="message" class="panel">
+
+        <h1>TURBO RUN 3D</h1>
+
+        <p>
+            Escolha seu carro, desvie dos obstáculos,
+            colete moedas e chegue à linha de chegada!
+        </p>
+
+        <h3>ESCOLHA SEU CARRO</h3>
+
+        <div id="carOptions">
+
+            <button class="car-option selected" data-car="blue">
+                <span class="car-color blue"></span>
+                ESPORTIVO
+            </button>
+
+            <button class="car-option" data-car="red">
+                <span class="car-color red"></span>
+                VERMELHO
+            </button>
+
+            <button class="car-option" data-car="black">
+                <span class="car-color black"></span>
+                PRETO
+            </button>
+
+            <button class="car-option" data-car="green">
+                <span class="car-color green"></span>
+                VERDE
+            </button>
+
+        </div>
+
+        <p id="loadingText">Carregando carro 3D...</p>
+
+        <p class="controls">
+            ← → MOVER | ↑ ACELERAR | ↓ FREAR
+        </p>
+
+        <button id="startButton" disabled>
+            INICIAR CORRIDA
+        </button>
+
+    </div>
+
+    <div id="finishMessage" class="panel hidden">
+
+        <h1 id="finishTitle">VOCÊ CHEGOU!</h1>
+
+        <p id="finalScore">Pontuação: 0</p>
+
+        <button id="restartButton">
+            JOGAR NOVAMENTE
+        </button>
+
+    </div>
+
+    <div id="help">
+        Use as setas do teclado para controlar o carro.
+    </div>
+
+    <script type="module" src="script.js"></script>
+
+</body>
+</html>
