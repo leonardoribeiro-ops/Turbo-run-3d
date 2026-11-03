@@ -1,0 +1,120 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Turbo Run 3D</title>
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.186.0/build/three.module.js"
+      }
+    }
+  </script>
+</head>
+<body>
+
+  <!-- HUD DO JOGO -->
+  <div id="hud">
+    <div class="logo">TURBO <span>RUN 3D</span></div>
+
+    <div class="stats">
+      <div class="stat">
+        PONTOS <strong id="score">0</strong>
+      </div>
+
+      <div class="stat">
+        MOEDAS <strong id="coins">0</strong>
+      </div>
+
+      <div class="stat">
+        DISTÂNCIA <strong id="distance">0</strong> m
+      </div>
+    </div>
+
+    <!-- INDICADOR DE DANOS -->
+    <div id="damage">
+      <span>INTEGRIDADE DO CARRO</span>
+
+      <div id="healthBar">
+        <div id="healthFill"></div>
+      </div>
+
+      <strong id="healthText">100%</strong>
+    </div>
+  </div>
+
+  <!-- GARAGEM E SELEÇÃO DE CARROS -->
+  <div id="message" class="panel">
+
+    <h1 id="messageTitle">TURBO RUN 3D</h1>
+
+    <p id="messageText">
+      Escolha seu carro e prepare-se para a corrida!
+    </p>
+
+    <h2>ESCOLHA SEU CARRO</h2>
+
+    <div id="carOptions">
+
+      <button class="car-option selected" data-car="blue">
+        <span class="car-color blue"></span>
+        AZUL
+      </button>
+
+      <button class="car-option" data-car="red">
+        <span class="car-color red"></span>
+        VERMELHO
+      </button>
+
+      <button class="car-option" data-car="black">
+        <span class="car-color black"></span>
+        PRETO
+      </button>
+
+      <button class="car-option" data-car="green">
+        <span class="car-color green"></span>
+        VERDE
+      </button>
+
+    </div>
+
+    <p class="controls">
+      ← → mover · ↑ acelerar · ↓ frear
+    </p>
+
+    <p class="controls">
+      Cuidado! Colidir com obstáculos danifica seu carro.
+    </p>
+
+    <button id="startButton">INICIAR CORRIDA</button>
+
+  </div>
+
+  <!-- TELA DE FINALIZAÇÃO -->
+  <div id="finishMessage" class="panel hidden">
+
+    <h1 id="finishTitle">VOCÊ CHEGOU!</h1>
+
+    <p id="finalScore">Pontuação: 0</p>
+
+    <button id="restartButton">
+      JOGAR NOVAMENTE
+    </button>
+
+  </div>
+
+  <!-- AVISOS -->
+  <div id="help">
+    Use as setas do teclado para controlar o carro.
+  </div>
+
+  <!-- THREE.JS -->
+  <script type="module" src="script.js"></script>
+
+</body>
+</html>
