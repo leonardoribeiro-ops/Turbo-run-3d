@@ -17,6 +17,8 @@ canvas {
     display: block;
 }
 
+/* HUD */
+
 #hud {
     position: absolute;
     top: 15px;
@@ -41,6 +43,8 @@ canvas {
     color: white;
 }
 
+/* PONTUAÇÃO */
+
 .stats {
     display: flex;
     gap: 10px;
@@ -61,6 +65,8 @@ canvas {
     color: #00eaff;
     font-size: 19px;
 }
+
+/* RESISTÊNCIA */
 
 #damage {
     background: rgba(5, 15, 31, 0.82);
@@ -90,6 +96,8 @@ canvas {
 #healthText {
     color: #20e66b;
 }
+
+/* PAINÉIS */
 
 .panel {
     position: absolute;
@@ -127,6 +135,8 @@ canvas {
 .hidden {
     display: none;
 }
+
+/* SELEÇÃO DOS CARROS */
 
 #carOptions {
     display: flex;
@@ -176,11 +186,15 @@ canvas {
     background: #13c46b;
 }
 
+/* INSTRUÇÕES */
+
 .controls {
     font-size: 12px;
     color: #00eaff !important;
     margin: 20px 0;
 }
+
+/* BOTÕES */
 
 button {
     padding: 13px 24px;
@@ -210,6 +224,8 @@ button:disabled {
     font-size: 13px;
 }
 
+/* AJUDA */
+
 #help {
     position: absolute;
     bottom: 15px;
@@ -224,11 +240,117 @@ button:disabled {
     text-align: center;
 }
 
-@media (max-width: 700px) {
+/* CONTROLES MOBILE */
+
+#mobileControls {
+    position: fixed;
+    bottom: 20px;
+    left: 0;
+    width: 100%;
+    padding: 0 18px;
+    display: none;
+    justify-content: space-between;
+    align-items: flex-end;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.mobile-directions,
+.mobile-actions {
+    display: flex;
+    gap: 10px;
+    pointer-events: auto;
+}
+
+.mobile-btn {
+    width: 62px;
+    height: 62px;
+    padding: 0;
+    border: 2px solid #00eaff;
+    border-radius: 15px;
+    background: rgba(5, 15, 31, 0.9);
+    color: white;
+    font-size: 23px;
+    font-weight: bold;
+    touch-action: none;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.mobile-btn:active {
+    background: #008cff;
+    transform: scale(0.92);
+}
+
+.accelerate-btn {
+    width: 82px;
+    background: rgba(0, 150, 80, 0.9);
+    border-color: #20e66b;
+    font-size: 13px;
+}
+
+.brake-btn {
+    width: 72px;
+    background: rgba(180, 30, 30, 0.9);
+    border-color: #ff4444;
+    font-size: 13px;
+}
+
+/* TABLETS E CELULARES */
+
+@media (max-width: 900px), (pointer: coarse) {
+
+    #mobileControls {
+        display: flex;
+    }
+
+    #help {
+        display: none;
+    }
+
     #hud {
-        flex-wrap: wrap;
         left: 10px;
         right: 10px;
+        gap: 6px;
+    }
+
+    .panel {
+        max-width: 92%;
+    }
+}
+
+/* CELULARES PEQUENOS */
+
+@media (max-width: 500px) {
+
+    #mobileControls {
+        bottom: 12px;
+        padding: 0 10px;
+    }
+
+    .mobile-btn {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+    }
+
+    .accelerate-btn {
+        width: 68px;
+        font-size: 11px;
+    }
+
+    .brake-btn {
+        width: 58px;
+        font-size: 11px;
+    }
+
+    .mobile-directions,
+    .mobile-actions {
+        gap: 6px;
+    }
+
+    #hud {
+        flex-wrap: wrap;
     }
 
     .logo {
