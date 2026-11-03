@@ -39,23 +39,7 @@ O jogo possui um visual inspirado em corridas futuristas, com cores neon e uma p
 - **JavaScript:** movimentação do carro, pontuação, moedas, colisões e funcionamento do jogo.
 - **Three.js:** criação dos objetos, da pista e do ambiente em 3D.
 - **Git e GitLab:** armazenamento e organização dos arquivos do projeto.
-
-## 📂 Organização dos arquivos
-
-```text
-Turbo-run-3d/
-│
-├── index.html
-│
-├── README.md
-│
-├── css/
-│   └── style.css
-│
-└── js/
-    └── script.js
-```
-
+- 
 ## ▶️ Como executar o jogo
 
 1. Baixe ou clone o repositório.
@@ -111,7 +95,5 @@ Projeto escolar: Turbo Run 3D.
 ## 📌 Status do projeto
 
 Em desenvolvimento.
-
----
 
 **Turbo Run 3D — Acelere, desvie e chegue até o final!** 🏁
